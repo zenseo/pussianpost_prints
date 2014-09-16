@@ -1,0 +1,37 @@
+<modification>
+        <id>OpenCart rupost form</id>
+        <version>1.0</version>
+        <vqmver>1</vqmver>
+        <author>Alexander Toporkov (toporchillo@gmail.com)</author>
+        <file name="admin/view/template/sale/order_info.tpl">
+			<operation>
+				<search position="before"><![CDATA[<?php echo $footer; ?>]]></search>
+				<add><![CDATA[
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.heading .buttons').prepend('<a href="javascript:void(0);" class="button" onclick="showPostFrom();">Почтовые формы</a>');
+})
+function showPostFrom() {
+	$('#content').prepend('<div id="postform-dialog" style="padding: 3px 0px 0px 0px;"><iframe src="<?php echo $post_form_link; ?>" style="padding:0; margin: 0; display: block; width: 100%; height: 100%;" frameborder="no" scrolling="auto"></iframe></div>');
+	$('#postform-dialog').dialog({
+		title: 'Форма почтового отправления',
+		bgiframe: false,
+		width: 970,
+		height: 500,
+		resizable: false,
+		modal: false
+	});
+}
+</script>
+				]]></add>
+			</operation>
+	</file>
+    <file name="admin/controller/sale/order.php">
+		<operation>
+			<search position="before"><![CDATA[$this->template = 'sale/order_info.tpl';]]></search>
+			<add><![CDATA[
+		$this->data['post_form_link'] = $this->url->link('module/ruspost_form/formprint', 'token=' . $this->session->data['token'] . '&order_id=' . $order_id, 'SSL');
+			]]></add>
+		</operation>
+	</file>
+</modification>
