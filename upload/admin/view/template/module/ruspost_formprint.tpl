@@ -121,8 +121,9 @@
     <td colspan="2" align="center">
 		<input type="hidden" name="act" id="act" value="<?php echo (isset($act) ? $act : 'none'); ?>"/>
 		<input type="submit" name="but_print" value="Бланк Ф.113 + Ф.117" id="but_print" onClick='document.form1.act.value="print"'>
-		<input type="submit" name="but_f113" value="Бланк Ф.113ЭН" id="but_print" onClick='document.form1.act.value="f113"'>
 		<input type="submit" name="but_f112ep" value="Бланк Ф.112ЭП" id="but_print" onClick='document.form1.act.value="f112ep"'>
+		<input type="submit" name="but_f113" value="Бланк Ф.113ЭН" id="but_print" onClick='document.form1.act.value="f113"'>
+		<input type="submit" name="but_f116" value="Бланк Ф.116" id="but_print" onClick='document.form1.act.value="f116"'>
 		<input type="submit" name="but_sticker" value="Наклейка" id="but_sticker" onClick='document.form1.act.value="sticker"'>
 		<input type="submit" name="but_opis" value="Опись вложения" id="but_print" onClick='document.form1.act.value="opis"'>
 	</td>

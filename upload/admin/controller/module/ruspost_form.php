@@ -199,6 +199,38 @@ class ControllerModuleRuspostForm extends Controller {
 		$doc->Output();
 		set_error_handler('error_handler');
 	}
+
+	public function f116() {
+		restore_error_handler();
+		error_reporting(E_ALL ^ E_NOTICE);
+		require(FPDF_LIBPATH.'fpdf.php');
+		require(FPDF_LIBPATH.'fpdf.class.f116.php');
+
+		$vals_array = $this->session->data['ufpdf_post_form'];
+		foreach ($vals_array as $key => $value) {
+			$vals_array[$key] = stripslashes ($value);
+		}
+		$doc = new PDF_F116('P','mm','A5');
+		$doc->Open();
+
+		$doc->PrintFirstPage('Post payment blank');
+		$doc->PrintAddrIndex($vals_array['addr_index']); // индекс получателя
+		$doc->PrintSenderIndex($vals_array['sender_index']); // индекс отправителя
+		$doc->PrintNumSum($vals_array['addr_sum']);
+		$doc->PrintStrSum($vals_array['addr_sum']);
+		$doc->PrintAddrName($vals_array['addr_name']);
+		$doc->PrintAddrAddress($vals_array['addr_address'],$vals_array['addr_index']);
+
+		$doc->PrintSenderNameAddress($vals_array['sender_name'],$vals_array['sender_index'],$vals_array['sender_address']);
+		$doc->PrintDocument($vals_array['sender_document_doc'], $vals_array['sender_document_ser'],
+			$vals_array['sender_document_nomer'], $vals_array['sender_document_vydan'],
+			$vals_array['sender_document_vydanday'], $vals_array['sender_document_vydanyear']);
+
+		$doc->PrintSecondPage();
+		//Выводим документ в браузер
+		$doc->Output();
+		set_error_handler('error_handler');
+	}
 	
 	public function formprint() {
 		$this->load->model('setting/setting');
@@ -249,6 +281,8 @@ class ControllerModuleRuspostForm extends Controller {
 				$this->redirect($this->url->link('module/ruspost_form/f113', 'token=' . $this->session->data['token'], 'SSL'));
 			else if ($this->request->post['act'] == 'f112ep')
 				$this->redirect($this->url->link('module/ruspost_form/f112ep', 'token=' . $this->session->data['token'], 'SSL'));
+			else if ($this->request->post['act'] == 'f116')
+				$this->redirect($this->url->link('module/ruspost_form/f116', 'token=' . $this->session->data['token'], 'SSL'));
 			else if ($this->request->post['act'] == 'opis')
 				$this->redirect($this->url->link('module/ruspost_form/pdfopis', 'token=' . $this->session->data['token'].'&order_id='.$this->request->get['order_id'], 'SSL'));
 			else
@@ -278,6 +312,7 @@ class ControllerModuleRuspostForm extends Controller {
 		$this->data['entry_fio'] = $this->language->get('entry_fio');
 		$this->data['entry_zip'] = $this->language->get('entry_zip');
 		$this->data['entry_address'] = $this->language->get('entry_address');
+		$this->data['entry_phone'] = $this->language->get('entry_phone');
 
 		$this->data['entry_jurfiz'] = $this->language->get('entry_jurfiz');
 

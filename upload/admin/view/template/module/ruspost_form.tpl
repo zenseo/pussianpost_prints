@@ -45,6 +45,11 @@
               <td><textarea name="ruspost_form_module[<?php echo $module_row; ?>][sender_address]" cols="80" rows="2"><?php echo $module['sender_address']; ?></textarea>
               </td>
             </tr>
+            <tr>
+              <td><?php echo $entry_phone; ?></td>
+              <td>+7 <input type="text" name="ruspost_form_module[<?php echo $module_row; ?>][sender_phone]" value="<?php echo $module['sender_phone']; ?>" size="15" />
+              </td>
+            </tr>
 
             <tr>
               <td><?php echo $entry_jurfiz; ?></td>

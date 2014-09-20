@@ -12,6 +12,7 @@ $_['entry_description']		= 'Название профиля:';
 $_['entry_fio']			= 'Кому:';
 $_['entry_zip']			= 'Почтовый индекс:';
 $_['entry_address']		= 'Адрес:';
+$_['entry_phone']		= 'Телефон:';
 
 $_['entry_jurfiz']		= 'Юрлицо:';
 
